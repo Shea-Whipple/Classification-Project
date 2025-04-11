@@ -1,2 +1,2 @@
 # Classification-Project
-Open classification-project.html to view the project.
+Download and open classification-project.html to view the project.
