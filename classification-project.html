@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Shea">
+<meta name="author" content="Shea and Rakeb Team: [The Crew]">
 
-<title>Homework 4: Intro to Classification</title>
+<title>Classification Project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3224,7 +3224,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 4: Intro to Classification</h1>
+<h1 class="title">Classification Project</h1>
 </div>
 
 
@@ -3234,7 +3234,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Shea </p>
+             <p>Shea and Rakeb Team: [The Crew] </p>
           </div>
   </div>
     
@@ -3249,156 +3249,32 @@ window.Quarto = {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>In this homework we will focus on <strong>classification</strong>. That is when the response variable is categorical. We’ll be on predicting a <strong>binary</strong> response variable, which is a categorical variable with only two possible outcomes. You will also practice collaborating with teams using GitHub.</p>
-<section id="learning-goals" class="level2">
-<h2 class="anchored" data-anchor-id="learning-goals">Learning goals</h2>
-<p>By the end of the homework, you will…</p>
-<ul>
-<li>Be able to work create and merge branches in GitHub</li>
-<li>Fit and interpret logistic regression models</li>
-<li>Fit and evaluation binary classification models</li>
-</ul>
-</section>
-</section>
-<section id="getting-started" class="level1">
-<h1>Getting Started</h1>
-<p>In last weeks homework, you learned how to share your work using GitHub and to resolve merge conflicts. This week you’ll learn about how to create and merge branches.</p>
-<section id="teams-rules" class="level2">
-<h2 class="anchored" data-anchor-id="teams-rules">Teams &amp; Rules</h2>
-<p>You can find your team for this assignment on Canvas in the <strong>People</strong> section. The group set is called <strong>HW4</strong>. Your group will consist of 2-3 people and has been randomly generated. But first, some rules:</p>
-<ol type="1">
-<li>At the start of your homework, you and your team members should be in the same physical room for Exercise 0.1.</li>
-<li>Exercise 0.2 will teach your how to create your own branch. Each team member will create their own branch and complete the homework themselves. Note that I’ll be able to see all of your commit so I’ll know if you didn’t do this.</li>
-<li>Once everyone is finished, you and your team members should get together in the same room again to Complete Exercise 0.3 which will teach you how to merge your branches together and decide on the best version of each question.</li>
-</ol>
-<p>As always:</p>
-<ol start="4" type="1">
-<li>You are all responsible for understanding the work that you turn in.</li>
-<li>If you encounter a merge error that you don’t know how to fix, contact Dr. Friedlander as soon as possible. I recommend starting this assignment early so there is time for Dr. Friedlander to help you resolve any problems before the deadline.</li>
-</ol>
-</section>
-<section id="clone-the-repo-create-your-own-branch-merging" class="level2">
-<h2 class="anchored" data-anchor-id="clone-the-repo-create-your-own-branch-merging">Clone the repo, create your own branch, &amp; merging</h2>
-<p>The following directions will guide you through the process of setting up your homework to work as a group.</p>
-</section>
-<section id="exercise-0.1" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-0.1">Exercise 0.1</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In your group, decide on a team name. Then have <strong>one member of your group</strong>:</p>
-<ol type="1">
-<li><a href="https://classroom.github.com/a/SXdGfP0m">Click this link</a> to accept the assignment and enter your team name.</li>
-<li>Repeat the directions for creating a project from HW 1 with the HW 4 repository.</li>
-</ol>
-<p>Once this is complete, the other members can do the same thing, being careful to join the already created team on GitHub classroom.</p>
-</div>
-</div>
-</section>
-<section id="exercise-0.2" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-0.2">Exercise 0.2</h2>
-<p>We will now learn how to create branches and run git from the <a href="https://neuraldatascience.io/2-nds/terminal.html">command line</a>. Each team member will create their own branch and complete a version of their homework.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Click on the “Terminal” tab right next to the “Console” tab in the bottom left of RStudio. This is a “bash terminal”. You run “bash scripts” here rather than R code.</li>
-<li>Create your own branch by typing <code>git checkout -b banch_name</code> where <code>branch_name</code> is whatever you want to name your branch. Typing <code>git</code> tells the terminal that you want to run a <code>git</code> command, <code>checkout</code> is a git command that will switch you to a different branch, the <code>-b</code> option will create a new branch for you. If you want to switch between existing branches leave out <code>-b</code>.</li>
-<li>Put your name in one of the slots below and render your document.</li>
-<li>Stage your changes by typing <code>git add .</code>. Think of this like clicking the check boxes in the top right screen. If you don’t want to stage ALL of the changes you can type <code>git add filename</code> where <code>filename</code> corresponds to the files you want to stage. <code>.</code> will simply stage all changes.</li>
-<li>Commit your changes by typing <code>git commit -m &quot;insert commit message&quot;</code> where you replace <code>insert commit message</code> with your actual commit message. This will commit your changes.</li>
-<li>To push your changes to GitHub, type <code>git push</code>.</li>
-<li>If you ever want to pull your changes you can type <code>git pull</code>.</li>
-<li>If all group members are working different branches you shouldn’t encounter any merge conflicts.</li>
-</ol>
-</div>
-</div>
+<p>In this project we will focus on <strong>classification</strong>. That is when the response variable is categorical. We’ll be predicting a <strong>binary</strong> response variable, which is a categorical variable with only two possible outcomes.</p>
 <ul>
 <li>Team Name: [The Crew]</li>
 <li>Member 1: [Shea]</li>
 <li>Member 2: [Rakeb]</li>
 </ul>
 </section>
-<section id="exercise-0.3" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-0.3">Exercise 0.3</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Skip this exercise until everyone has finished the homework. Test 1</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Read the warning above!</li>
-<li>(DO NOT SKIP) Go through all of the questions together, discussing each others solutions to get a good idea of what you want the final submission to look like.</li>
-<li>On any computer, type <code>git checkout main</code>. This will move you into your main branch.</li>
-<li>Type <code>git merge name_of_branch_you_want_to_merge</code> where <code>name_of_branch_you_want_to_merge</code> is the name of the branch you want to merge into <code>main</code>.</li>
-<li>Do this for each team members branch. Each time you will likely get a merge-conflict that you need to resolve. Resolve them in the same way you did for the previous homework.</li>
-</ol>
-</div>
-</div>
-</section>
-</section>
 <section id="logistic-regression" class="level1">
 <h1>Logistic Regression</h1>
 <p>For our first classification method, we will use a type of <strong>generalized linear model</strong> called a <strong>logistic regression model</strong>. If we have a <strong>Binomial random variable</strong>, a random variable with just two possible outcomes (0 or 1), logistic regression gives us the probability that each outcome occurs based on some predictor variables <span class="math inline">\(X\)</span>. Whereas, for linear regression, we were estimating models of the form, <span class="math display">\[Y = \beta_0 + \beta_1\times X_1 + \beta_2\times X_2\]</span> the form of the a logistic regression equation is</p>
-<p><span class="math display">\[P(Y = 1 | X)  = \dfrac{e^{\beta_0 + \beta_1\times X_1 + \beta_2\times X_2}}{1 + e^{\beta_0 + \beta_1\times X_1 + \beta_2\times X_2}}.\]</span> In other words, this function gives us the probability that the outcome variable <span class="math inline">\(Y\)</span> belongs to category 1 given particular values for the predictor variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. Notice that the function above will always be between 0 and 1 for any values of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(X\)</span>, which is what allows us to interpret this as a probability. Of course, the probability that the outcome variable is equal to 0 is just <span class="math inline">\(1 - P(Y = 1 | X)\)</span>. Rearranging the formula above, we have</p>
+<p><span class="math display">\[P(Y = 1 | X)  = \dfrac{e^{\beta_0 + \beta_1\times X_1 + \beta_2\times X_2}}{1 + e^{\beta_0 + \beta_1\times X_1 + \beta_2\times X_2}}.\]</span>In other words, this function gives us the probability that the outcome variable <span class="math inline">\(Y\)</span> belongs to category 1 given particular values for the predictor variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>. Notice that the function above will always be between 0 and 1 for any values of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(X\)</span>, which is what allows us to interpret this as a probability. Of course, the probability that the outcome variable is equal to 0 is just <span class="math inline">\(1 - P(Y = 1 | X)\)</span>. Rearranging the formula above, we have</p>
 <p><span class="math display">\[\log \left (\dfrac{P(Y = 1 | X) }{1 - P(Y = 1 | X) } \right ) = \beta_0 + \beta_1X_1 + \beta_2X_2\]</span></p>
-<p>and we see why logistic regression is considered a type of generalized <strong>linear</strong> regression. The quantity on the left is called the <strong>log-odds</strong> or <strong>logit</strong>, and so logistic regression models the log-odds as a linear function of the predictor variable. The coefficients are chosen via the <strong>maximum likelihood criterion</strong>, which you can read more about in Section 12.2 of APM and Section 4.3.2 ISLR if you would like. I recommend learning more about <strong>maximum likelihood estimators</strong> at some point when you have the chance.</p>
+<p>and we see why logistic regression is considered a type of generalized <strong>linear</strong> regression. The quantity on the left is called the <strong>log-odds</strong> or <strong>logit</strong>, and so logistic regression models the log-odds as a linear function of the predictor variable. The coefficients are chosen via the <strong>maximum likelihood criterion</strong>.</p>
 </section>
 <section id="our-data" class="level1">
 <h1>Our Data</h1>
-<p>In this homework, we will practice applying logistic regression by working with the data set <code>haberman.data</code>. The dataset contains cases from a study that was conducted between 1958 and 1970 at the University of Chicago’s Billings Hospital on the survival of patients who had undergone surgery for breast cancer. More information about the data set is included in the file <code>haberman.names</code>. We’ll be trying to predict whether a patient survived after undergoing surgery for breast cancer.</p>
-<section id="exercise-1" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<p>In this project, we will practice applying logistic regression by working with the data set <code>haberman.data</code>. The data-set contains cases from a study that was conducted between 1958 and 1970 at the University of Chicago’s Billings Hospital on the survival of patients who had undergone surgery for breast cancer. More information about the data set is included in the file <code>haberman.names</code>. We’ll be trying to predict whether a patient survived after undergoing surgery for breast cancer.</p>
+</section>
+<section id="loading-data" class="level1">
+<h1>Loading Data</h1>
 <ul>
-<li>Load the data set into R using the <code>read_csv</code> function. The <code>haberman.data</code> file does not contain column names so you will need to use the <code>col_names</code> argument to specify them yourself. Choose sensible names based on the information in <code>haberman.names</code>.</li>
-<li>Convert the Survival Status variable into a factor, giving appropriate names (i.e. not numbers) to each category.</li>
-<li>Give a brief summary of the data set containing any information you feel would be important.</li>
-<li>Split the data into a training and test set. Use a 60-40 split. Once again, please set your seed to 427.</li>
+<li>Load the data set into R using the <code>read_csv</code> function. The <code>haberman.data</code> file does not contain column names so we use <code>col_names</code> argument to specify them ourselves.</li>
+<li>Converted the Survival Status variable into a factor, giving appropriate names (i.e. not numbers) to each category.</li>
+<li>Brief summary of the data set containing any information you feel would be important.</li>
+<li>Split the data into a training and test set. Use a 60-40 split.</li>
 </ul>
-</div>
-</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">427</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>haberman <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;haberman.data&quot;</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Nodes&quot;</span>, <span class="st">&quot;Survival&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3476,47 +3352,19 @@ dbl (4): Age, Year, Nodes, Survival
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>haberman_train <span class="ot">&lt;-</span> <span class="fu">training</span>(haberman_split)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>haberman_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(haberman_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><strong>Summary: The data-set includes information about the age of the patient at time of operation, patient’s year of operation, number of positive auxiliary nodes detected, survival status of the patient on whether they survived for 5 years or longer or not.</strong></p>
+<p>Attribute Information:</p>
+<ol type="1">
+<li>Age of patient at time of operation (numerical)</li>
+<li>Patient’s year of operation (year - 1900, numerical)</li>
+<li>Number of positive auxiliary nodes detected (numerical)</li>
+<li>Survival status (class attribute) 1 = the patient survived 5 years or longer 2 = the patient died within 5 year</li>
+</ol>
+<p>Fitting Our First Logistic Regression model</p>
 </section>
-</section>
-<section id="summary--the-dataset-includes-information-about-the-age-of-the-patient-at-time-of-operation-patients-year-of-operation-number-of-positive-auxilary-nodes-detected-survival-status-of-the-patient-on-whether-they-survived-for-5-years-or-longer-or-not." class="level1">
-<h1><strong>Summary:- The dataset includes information about the age of the patient at time of operation, patient’s year of operation, number of positive auxilary nodes detected, survival status of the patient on whether they survived for 5 years or longer or not.</strong></h1>
-</section>
-<section id="attribute-information" class="level1">
-<h1>Attribute Information:</h1>
-</section>
-<section id="age-of-patient-at-time-of-operation-numerical" class="level1">
-<h1>1. Age of patient at time of operation (numerical)</h1>
-</section>
-<section id="patients-year-of-operation-year---1900-numerical" class="level1">
-<h1>2. Patient’s year of operation (year - 1900, numerical)</h1>
-</section>
-<section id="number-of-positive-axillary-nodes-detected-numerical" class="level1">
-<h1>3. Number of positive axillary nodes detected (numerical)</h1>
-</section>
-<section id="survival-status-class-attribute" class="level1">
-<h1>4. Survival status (class attribute)</h1>
-</section>
-<section id="the-patient-survived-5-years-or-longer" class="level1">
-<h1>1 = the patient survived 5 years or longer</h1>
-</section>
-<section id="the-patient-died-within-5-year" class="level1">
-<h1>2 = the patient died within 5 year</h1>
-</section>
-<section id="fitting-our-first-logistic-regression-model" class="level1">
-<h1>Fitting Our First Logistic Regression model</h1>
-<section id="exercise-2" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Using the data from your training set build a logistic regression model to predict whether or not a patient will survive based only on the number of axillary nodes detected. The same summary and <code>broom</code> functions will work for exploring your logistic model. Does the probability of survival increase or decrease with the number of nodes detected?</p>
+<section id="fitting-logistic-regression-model" class="level1">
+<h1>Fitting Logistic Regression Model</h1>
+<p>Using the data from your training set to build a logistic regression model to predict whether or not a patient will survive based only on the number of auxiliary nodes detected. Does the probability of survival increase or decrease with the number of nodes detected?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>logregfit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">|&gt;</span> </span>
@@ -3553,23 +3401,11 @@ Question
 </table>
 </div>
 </div>
-</div>
-</div>
-<p><strong>The odds of survival increase by a factor of 0.101 with one unit increase of number auxiliary nodes detected.</strong></p>
+<p><strong>The odds of survival increase by a factor of 0.101 with one unit increase. Unit in this case is number of auxiliary Nodes.</strong></p>
 </section>
-<section id="exercise-23" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-23">Exercise 2(3?)</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Use the <code>predict</code> function to evaluate your model on the integers from 0 to 50. Create a plot with the integers from 0 to 50 on the x-axis and the predicted probabilities on the y-axis. Based on this image, estimate the input that would be needed to give an output of 0.75. What does this mean in the context of the model? <strong>Note.</strong> To use <code>predict</code> the <code>new_data</code> must be a <code>tibble</code> where the columns have the same names as the those in the data frame you used to train your model.</p>
+<section id="evaluating-model" class="level1">
+<h1>Evaluating Model</h1>
+<p>Using the <code>predict</code> function to evaluate the model on the integers from 0 to 50. Created a plot with the integers from 0 to 50 on the x-axis and the predicted probabilities on the y-axis. Based on this image, we estimated the input that would be needed to give an output of 0.75. What does this mean in the context of the model?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>new_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Nodes =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">50</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#use predict function</span></span>
@@ -3591,30 +3427,18 @@ Question
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#estimate the input that would be needed to give an output of 0.75</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<p><strong>4 is the input that would be needed to give an output of 0.75, that means that the input to give an output of survival probability of 75% is 4 nodes.</strong></p>
+<p><strong>3-4 is the input that would be needed to give an output of 0.75, that means that the input to give an output of survival probability of 75% is 3-4 nodes.</strong></p>
 </section>
-</section>
-<section id="classifiction-using-a-logistic-regression-model" class="level1">
-<h1>Classifiction Using a Logistic Regression Model</h1>
+<section id="classification-using-a-logistic-regression-model" class="level1">
+<h1>Classification using a Logistic Regression Model</h1>
 <p>For a classification problem, we want a prediction of which class the outcome variable belongs to. Notice that the outputs of your logistic regression model are <em>probabilities</em>. We need to translate these into classifications. In order to get a prediction from a binomial logistic regression model, we define a <strong>threshold</strong>. If the output of the model is above the threshold, then we predict class 1, and if it is below the threshold we predict class 0.</p>
-<section id="exericse-4-compute-confusion-matrix-by-hand" class="level2">
-<h2 class="anchored" data-anchor-id="exericse-4-compute-confusion-matrix-by-hand">Exericse 4 compute confusion matrix by hand</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
+</section>
+<section id="confusion-matrix-by-hand" class="level1">
+<h1>Confusion matrix by hand</h1>
 <ul>
-<li>For the rest of the homework, treat the patient dying as our “Positive” class.</li>
-<li>Using a threshold value of 0.5, obtain a vector of class predictions for the test data set (the <code>if_else</code> function might be useful here). You need not display it.</li>
-<li>Construct a confusion matrix.</li>
+<li>For the rest of the project, treat the patient dying as our “Positive” class.</li>
+<li>Using a threshold value of 0.5, obtain a vector of class predictions for the test data set.</li>
+<li>Construct a confusion matrix by “hand”.</li>
 <li>Using the numbers from your confusion matrix (i.e. without using functions from yardstick) compute the following:
 <ul>
 <li>Accuracy</li>
@@ -3624,8 +3448,6 @@ Question
 <li>Negative Predictive Value</li>
 </ul></li>
 </ul>
-</div>
-</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nodes_test <span class="ot">&lt;-</span> haberman_test <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">logistic_preds =</span> <span class="fu">predict</span>(logregfit, <span class="at">new_data =</span> haberman_test, <span class="at">type=</span><span class="st">&quot;class&quot;</span>)<span class="sc">$</span>.pred_class)</span>
@@ -3669,42 +3491,20 @@ Question
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>neg <span class="ot">=</span> neg <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Accuracy was 75.6097561%, the Precision was 24.2424242%, the recall was 61.5384615%, the Specificity was 94.4444444%, the Negative Predictive value was 77.2727273%.</p>
-</section>
 <section id="baseline-model" class="level2">
 <h2 class="anchored" data-anchor-id="baseline-model">Baseline Model</h2>
 <p>Now, we may be asking ourselves, “Is this a good accuracy?” and the answer is, as always, “It depends on your data and the goals of your analysis!”. The question below illustrates some of the nuances of using accuracy as a performance metric.</p>
 </section>
-<section id="exercise-5" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-5">Exercise 5</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose you decided to create a super simple model and just predict that everyone survives. What would the accuracy on the training set be? Note that you should not need to use construct a confusion matrix to answer this question.</p>
-<p>It should be lower because it makes more errors. (more false negatives and more false positives)</p>
-<p>Perhaps we shouldn’t be so excited about the accuracy obtained in question 4! Accuracy is a good metric but it isn’t perfect and suffers in situations where our classes are unbalanced.</p>
-</div>
-</div>
+<section id="questions-and-answers" class="level2">
+<h2 class="anchored" data-anchor-id="questions-and-answers">Questions and Answers</h2>
+<p>Q: Suppose you decided to create a super simple model and just predict that everyone survives. What would the accuracy on the training set be?</p>
+<p>A: It should be lower because it makes more errors. (more false negatives and more false positives)</p>
+<p>Note: Perhaps we shouldn’t be so excited about the accuracy obtained in the confusion matrix. Accuracy is a good metric but it isn’t perfect and suffers in situations where our classes are unbalanced.</p>
 </section>
-<section id="exercise-6" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-6">Exercise 6</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A threshold of 0.5 isn’t necessarily the best choice for the threshold. Write out a for-loop to test every threshold between 0 and 1 (increase by steps of 0.01). Create a single line-plot with the the threshold on the x-axis and the following on the y-axis: - accuracy - recall - precision You may use any <code>parsnip</code> functions you like. Hint: you should NOT be fitting any models here.</p>
+</section>
+<section id="finding-best-threshold" class="level1">
+<h1>Finding best threshold</h1>
+<p>A threshold of 0.5 isn’t necessarily the best choice for the threshold. Wrote out a for-loop to test every threshold between 0 and 1 (increase by steps of 0.01). Created a single line-plot with the the threshold on the x-axis and the following on the y-axis: - accuracy - recall - precision.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>test_probabilities <span class="ot">&lt;-</span> <span class="fu">predict</span>(logregfit, <span class="at">new_data =</span> haberman_test, <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -3755,9 +3555,6 @@ Removed 23 rows containing missing values or values outside the scale range
 </div>
 </div>
 </div>
-</div>
-</div>
-</section>
 </section>
 <section id="roc-and-auc" class="level1">
 <h1>ROC and AUC</h1>
@@ -3767,29 +3564,10 @@ Removed 23 rows containing missing values or values outside the scale range
 <li><strong>false-positive rate</strong>: the proportion of 0’s which are incorrectly classified as 1’s. One minus the false-positive rate is a quantity called the <strong>specificity</strong></li>
 </ul>
 <p>As we tune our threshold above, we are changing the true-positive and false-positive rates. The higher our threshold, the fewer observations get classified as positive and so the true-positive rate will decrease and the false-positive rate will decrease. As a result, we can view the true-positive rate as a function of the false-positive rate. Plotting this function results in an ROC curve.</p>
-<p>The more the curve looks like its being sucked into the top left corner, the better your model is. In fact, we can compute the area under this ROC curve to get a performance metric called <strong>AUC</strong> which you can use to evaluate your model. The nice thing about ROC curves and the AUC metric is that they are insensitive to class sizes so they can be used when you have unbalanced classes.</p>
-<section id="exercise-7" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-7">Exercise 7</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Produce an ROC curve and AUC statistic on the test set. Try to add your AUC to your plot. Comment on your results.</p>
-</div>
-</div>
+<p>The more the curve looks like its conformed to the top left corner, the better your model is. In fact, we can compute the area under this ROC curve to get a performance metric called <strong>AUC</strong> which you can use to evaluate the model. The nice thing about ROC curves and the AUC metric is that they are insensitive to class sizes so they can be used when you have unbalanced classes.</p>
 </section>
-</section>
-<section id="produce" class="level1">
-<h1>produce</h1>
-</section>
-<section id="comment" class="level1">
-<h1>comment</h1>
+<section id="roc-and-auc-for-our-model" class="level1">
+<h1>ROC and AUC for our Model</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -3808,10 +3586,8 @@ Attaching package: &#39;pROC&#39;</code></pre>
     cov, smooth, var</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(logregfit, <span class="at">new_data =</span> haberman_test, <span class="at">type=</span><span class="st">&quot;prob&quot;</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#p|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  kable()</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(haberman_test<span class="sc">$</span>Survival,p<span class="sc">$</span>.pred_Yes), <span class="at">print.auc=</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(haberman_test<span class="sc">$</span>Survival,p<span class="sc">$</span>.pred_Yes), <span class="at">print.auc=</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Setting levels: control = Yes, case = No</code></pre>
 </div>
@@ -3826,32 +3602,10 @@ Attaching package: &#39;pROC&#39;</code></pre>
 </div>
 </div>
 </div>
-<p>These are the results im glad its done.</p>
 </section>
-<section id="final-challenge" class="level1">
-<h1>Final Challenge</h1>
-<section id="exercise-8" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-8">Exercise 8</h2>
-<div class="callout callout-style-default callout-tip callout-titled" title="Question">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Question
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Kaggle is a website that runs a variety of data science competitions. Read about the framingham heart study and the associated data set <a href="https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression">here</a>. Please stop reading at the section entitled “logistic regression” as this will spoil the fun of analyzing this data set. Since you have to create an account to download data off of Kaggle I’ve included a csv in the assignment repository. Create the best model that you can. Best model get’s a high five from Dr. Friedlander. Note, split your data into a train, and test sets using the seed 10520.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="do-everything-above" class="level1">
-<h1>do everything above</h1>
-</section>
-<section id="copilot-generated-code-below" class="level1">
-<h1>copilot generated code (below)</h1>
+<section id="do-the-same-on-new-data-set" class="level1">
+<h1>Do the same on new data-set</h1>
+<p>“Kaggle” is a website that runs a variety of data science competitions. Read about the “framingham” heart study and the associated data set <a href="https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression">here</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10520</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4026,9 +3780,6 @@ dbl (16): male, age, education, currentSmoker, cigsPerDay, BPMeds, prevalent...
 </div>
 </div>
 </div>
-</section>
-<section id="figure-out-the-criteria-of-what-it-means-to-have-the-best-model" class="level1">
-<h1>figure out the criteria of what it means to have the best model</h1>
 </section>
 
 </main>
