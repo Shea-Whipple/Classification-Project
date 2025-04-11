@@ -1,0 +1,271 @@
+---
+title: "Classification Project"
+author: "Shea and Rakeb Team: [The Crew]"
+editor: visual
+format:
+  html:
+    embed-resources: true
+---
+
+```{r setup, include=FALSE}
+library(tidymodels)
+library(tidyverse)
+library(datasets)
+library(ISLR2)
+library(ggplot2)
+library(kknn)
+library(parsnip)
+library(dplyr)
+library(knitr) 
+library(readODS) 
+library(corrr)
+library(rsample)
+library(janitor) # for next contingency tables
+```
+
+# Introduction
+
+In this project we will focus on **classification**. That is when the response variable is categorical. We'll be predicting a **binary** response variable, which is a categorical variable with only two possible outcomes.
+
+-   Team Name: \[The Crew\]
+-   Member 1: \[Shea\]
+-   Member 2: \[Rakeb\]
+
+# Logistic Regression
+
+For our first classification method, we will use a type of **generalized linear model** called a **logistic regression model**. If we have a **Binomial random variable**, a random variable with just two possible outcomes (0 or 1), logistic regression gives us the probability that each outcome occurs based on some predictor variables $X$. Whereas, for linear regression, we were estimating models of the form, $$Y = \beta_0 + \beta_1\times X_1 + \beta_2\times X_2$$ the form of the a logistic regression equation is
+
+$$P(Y = 1 | X)  = \dfrac{e^{\beta_0 + \beta_1\times X_1 + \beta_2\times X_2}}{1 + e^{\beta_0 + \beta_1\times X_1 + \beta_2\times X_2}}.$$In other words, this function gives us the probability that the outcome variable $Y$ belongs to category 1 given particular values for the predictor variables $X_1$ and $X_2$. Notice that the function above will always be between 0 and 1 for any values of $\beta$ and $X$, which is what allows us to interpret this as a probability. Of course, the probability that the outcome variable is equal to 0 is just $1 - P(Y = 1 | X)$. Rearranging the formula above, we have
+
+$$\log \left (\dfrac{P(Y = 1 | X) }{1 - P(Y = 1 | X) } \right ) = \beta_0 + \beta_1X_1 + \beta_2X_2$$
+
+and we see why logistic regression is considered a type of generalized **linear** regression. The quantity on the left is called the **log-odds** or **logit**, and so logistic regression models the log-odds as a linear function of the predictor variable. The coefficients are chosen via the **maximum likelihood criterion**.
+
+# Our Data
+
+In this project, we will practice applying logistic regression by working with the data set `haberman.data`. The data-set contains cases from a study that was conducted between 1958 and 1970 at the University of Chicago's Billings Hospital on the survival of patients who had undergone surgery for breast cancer. More information about the data set is included in the file `haberman.names`. We'll be trying to predict whether a patient survived after undergoing surgery for breast cancer.
+
+# Loading Data
+
+-   Load the data set into R using the `read_csv` function. The `haberman.data` file does not contain column names so we use `col_names` argument to specify them ourselves.
+-   Converted the Survival Status variable into a factor, giving appropriate names (i.e. not numbers) to each category.
+-   Brief summary of the data set containing any information you feel would be important.
+-   Split the data into a training and test set. Use a 60-40 split.
+
+```{r}
+set.seed(427)
+haberman <- read_csv("haberman.data", col_names = c("Age", "Year", "Nodes", "Survival"))
+
+
+haberman$Survival <- factor(haberman$Survival, levels = c(1,2), labels = c("Yes", "No"))
+
+summary(haberman)|> kable(digits = 3)
+
+haberman_split <- initial_split(haberman, prop = 0.60, strata = Survival )
+
+haberman_train <- training(haberman_split)
+haberman_test <- testing(haberman_split)
+```
+
+**Summary: The data-set includes information about the age of the patient at time of operation, patient's year of operation, number of positive auxiliary nodes detected, survival status of the patient on whether they survived for 5 years or longer or not.**
+
+Attribute Information:
+
+1.  Age of patient at time of operation (numerical)
+2.  Patient's year of operation (year - 1900, numerical)
+3.  Number of positive auxiliary nodes detected (numerical)
+4.  Survival status (class attribute) 1 = the patient survived 5 years or longer 2 = the patient died within 5 year
+
+Fitting Our First Logistic Regression model
+
+# Fitting Logistic Regression Model
+
+Using the data from your training set to build a logistic regression model to predict whether or not a patient will survive based only on the number of auxiliary nodes detected. Does the probability of survival increase or decrease with the number of nodes detected?
+
+```{r}
+logregfit <- logistic_reg() |> 
+  set_engine("glm") |> 
+  fit(Survival ~ Nodes, data = haberman_train)   # fit logistic regression model
+
+tidy(logregfit) |> kable(digits = 3)  # obtain results
+
+```
+
+**The odds of survival increase by a factor of 0.101 with one unit increase. Unit in this case is number of auxiliary Nodes.**
+
+# Evaluating Model
+
+Using the `predict` function to evaluate the model on the integers from 0 to 50. Created a plot with the integers from 0 to 50 on the x-axis and the predicted probabilities on the y-axis. Based on this image, we estimated the input that would be needed to give an output of 0.75. What does this mean in the context of the model?
+
+```{r}
+
+
+new_df <- tibble(Nodes = 0:50)
+#use predict function
+predicted_prob <- predict(logregfit, new_data = new_df, type = "prob")  |> bind_cols(new_df) # obtain class predictions
+
+
+#create a plot
+ggplot(predicted_prob, aes(x = Nodes, y = .pred_Yes)) +
+  geom_line() +
+  geom_hline(yintercept = 0.75, linetype = "dashed", color = "red") +
+  labs(x = "Number of Nodes", y = "Predicted Probability of Survival",
+       title = "Predicted Probability of Survival by Number of Nodes")
+
+#estimate the input that would be needed to give an output of 0.75
+
+
+```
+
+**3-4 is the input that would be needed to give an output of 0.75, that means that the input to give an output of survival probability of 75% is 3-4 nodes.**
+
+# Classification using a Logistic Regression Model
+
+For a classification problem, we want a prediction of which class the outcome variable belongs to. Notice that the outputs of your logistic regression model are *probabilities*. We need to translate these into classifications. In order to get a prediction from a binomial logistic regression model, we define a **threshold**. If the output of the model is above the threshold, then we predict class 1, and if it is below the threshold we predict class 0.
+
+# Confusion matrix by hand
+
+-   For the rest of the project, treat the patient dying as our "Positive" class.
+-   Using a threshold value of 0.5, obtain a vector of class predictions for the test data set.
+-   Construct a confusion matrix by "hand".
+-   Using the numbers from your confusion matrix (i.e. without using functions from yardstick) compute the following:
+    -   Accuracy
+    -   Precision
+    -   Recall
+    -   Specificity
+    -   Negative Predictive Value
+
+```{r}
+nodes_test <- haberman_test |>
+  mutate(logistic_preds = predict(logregfit, new_data = haberman_test, type="class")$.pred_class)
+
+nodes_test
+
+nodes_test |>
+  conf_mat(truth = Survival, estimate = logistic_preds)|>
+  autoplot(type = "heatmap")
+acc = (85+8)/(85+25+5+8)
+sens = 8/(8+25)
+prec = 8/(8+5)
+spe = 85/(85+5)
+neg = 85/(85+25)
+acc = acc * 100
+sens = sens * 100
+prec = prec * 100
+spe = spe * 100
+neg = neg * 100
+```
+
+The Accuracy was `r acc`%, the Precision was `r sens`%, the recall was `r prec`%, the Specificity was `r spe`%, the Negative Predictive value was `r neg`%.
+
+## Baseline Model
+
+Now, we may be asking ourselves, "Is this a good accuracy?" and the answer is, as always, "It depends on your data and the goals of your analysis!". The question below illustrates some of the nuances of using accuracy as a performance metric.
+
+## Questions and Answers
+
+Q: Suppose you decided to create a super simple model and just predict that everyone survives. What would the accuracy on the training set be?
+
+A: It should be lower because it makes more errors. (more false negatives and more false positives)
+
+Note: Perhaps we shouldn't be so excited about the accuracy obtained in the confusion matrix. Accuracy is a good metric but it isn't perfect and suffers in situations where our classes are unbalanced.
+
+# Finding best threshold
+
+A threshold of 0.5 isn't necessarily the best choice for the threshold. Wrote out a for-loop to test every threshold between 0 and 1 (increase by steps of 0.01). Created a single line-plot with the the threshold on the x-axis and the following on the y-axis: - accuracy - recall - precision.
+
+```{r}
+test_probabilities <- predict(logregfit, new_data = haberman_test, type = "prob")
+
+thresholds <- seq(0, 1, by = 0.01)
+results <- tibble(threshold = thresholds, accuracy = NA, recall = NA, precision = NA)
+
+for (i in seq_along(thresholds)) {
+  threshold <- thresholds[i]
+  class_predictions <- if_else(test_probabilities$.pred_Yes > threshold, "Yes", "No")
+
+  cm <- table(haberman_test$Survival, class_predictions)
+
+  if (all(dim(cm) == c(2, 2))) {
+    accuracy <- sum(diag(cm)) / sum(cm)
+    precision <- ifelse(sum(cm[, 2]) == 0, NA, cm[2, 2] / sum(cm[, 2]))
+    recall <- ifelse(sum(cm[2, ]) == 0, NA, cm[2, 2] / sum(cm[2, ]))
+
+    results$accuracy[i] <- accuracy
+    results$recall[i] <- recall
+    results$precision[i] <- precision
+  } else {
+    results$accuracy[i] <- NA
+    results$recall[i] <- NA
+    results$precision[i] <- NA
+  }
+}
+
+library(ggplot2)
+ggplot(results, aes(x = threshold)) +
+  geom_line(aes(y = accuracy, color = "Accuracy")) +
+  geom_line(aes(y = recall, color = "Recall")) +
+  geom_line(aes(y = precision, color = "Precision")) +
+  labs(y = "Metric Value", color = "Metric") +
+  theme_minimal()
+
+```
+
+# ROC and AUC
+
+Let's move on to a different method of measuring performance called a **Receiver Operating Curve** or **ROC** curve. Note that ROC curves can only be constructed when our target variable only has two classes. Let's first think about a few quantities:
+
+-   **true-positive rate**: the proportion of 1's which are correctly classified as 1's, sometimes referred to as the **sensitivity** or **recall**.
+-   **false-positive rate**: the proportion of 0's which are incorrectly classified as 1's. One minus the false-positive rate is a quantity called the **specificity**
+
+As we tune our threshold above, we are changing the true-positive and false-positive rates. The higher our threshold, the fewer observations get classified as positive and so the true-positive rate will decrease and the false-positive rate will decrease. As a result, we can view the true-positive rate as a function of the false-positive rate. Plotting this function results in an ROC curve.
+
+The more the curve looks like its conformed to the top left corner, the better your model is. In fact, we can compute the area under this ROC curve to get a performance metric called **AUC** which you can use to evaluate the model. The nice thing about ROC curves and the AUC metric is that they are insensitive to class sizes so they can be used when you have unbalanced classes.
+
+# ROC and AUC for our Model
+
+```{r}
+library(pROC)
+p <- predict(logregfit, new_data = haberman_test, type="prob")
+
+plot(roc(haberman_test$Survival,p$.pred_Yes), print.auc= TRUE)
+```
+
+# Do the same on new data-set
+
+"Kaggle" is a website that runs a variety of data science competitions. Read about the "framingham" heart study and the associated data set [here](https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression).
+
+```{r}
+
+set.seed(10520)
+
+
+framingham <-  read_csv("framingham.csv")
+
+framingham$TenYearCHD <- factor(framingham$TenYearCHD, levels = c(0, 1), labels = c("No", "Yes"))
+
+framingham_split <- initial_split(framingham, prop = 0.60)
+framingham_train <- training(framingham_split)
+framingham_test <- testing(framingham_split)
+
+
+
+logregfit_framingham <- logistic_reg() |>
+  set_engine("glm") |>
+  fit(TenYearCHD ~ ., data = framingham_train)
+
+tidy(logregfit_framingham) |> kable(digits = 3)
+
+test_probabilities_framingham <- predict(logregfit_framingham, new_data = framingham_test, type = "prob")
+
+test_data_with_probs_framingham <- bind_cols(framingham_test, test_probabilities_framingham)
+roc_data_framingham <- roc_curve(test_data_with_probs_framingham, truth = TenYearCHD, .pred_Yes, event_level = "second")
+auc_value_framingham <- roc_auc(test_data_with_probs_framingham, truth = TenYearCHD, .pred_Yes, event_level = "second")
+
+ggplot(roc_data_framingham, aes(x = 1 - specificity, y = sensitivity)) +
+  geom_line() +
+  geom_abline(linetype = "dashed") +
+  labs(x = "False Positive Rate (1 - Specificity)", y = "True Positive Rate (Sensitivity)", title = "ROC Curve") +
+  annotate("text", x = 0.75, y = 0.25, label = paste("AUC =", round(auc_value_framingham$.estimate, 3)), size = 5, color = "blue") +
+  theme_minimal()
+```
