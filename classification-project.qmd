@@ -231,41 +231,10 @@ p <- predict(logregfit, new_data = haberman_test, type="prob")
 plot(roc(haberman_test$Survival,p$.pred_Yes), print.auc= TRUE)
 ```
 
-# Do the same on new data-set
+# Conclusion
 
-"Kaggle" is a website that runs a variety of data science competitions. Read about the "framingham" heart study and the associated data set [here](https://www.kaggle.com/datasets/dileep070/heart-disease-prediction-using-logistic-regression).
+Part of binary classification models is understanding the trade-off between sensitivity and specificity. The ROC curve visualizes this trade-off across different probability thresholds.
 
-```{r}
+Our ROC curve shows a slightly pronounced bow toward the upper-left corner of the plot. This shape indicates that our model achieves a decent balance between true positive rate and false positive rate.
 
-set.seed(10520)
-
-
-framingham <-  read_csv("framingham.csv")
-
-framingham$TenYearCHD <- factor(framingham$TenYearCHD, levels = c(0, 1), labels = c("No", "Yes"))
-
-framingham_split <- initial_split(framingham, prop = 0.60)
-framingham_train <- training(framingham_split)
-framingham_test <- testing(framingham_split)
-
-
-
-logregfit_framingham <- logistic_reg() |>
-  set_engine("glm") |>
-  fit(TenYearCHD ~ ., data = framingham_train)
-
-tidy(logregfit_framingham) |> kable(digits = 3)
-
-test_probabilities_framingham <- predict(logregfit_framingham, new_data = framingham_test, type = "prob")
-
-test_data_with_probs_framingham <- bind_cols(framingham_test, test_probabilities_framingham)
-roc_data_framingham <- roc_curve(test_data_with_probs_framingham, truth = TenYearCHD, .pred_Yes, event_level = "second")
-auc_value_framingham <- roc_auc(test_data_with_probs_framingham, truth = TenYearCHD, .pred_Yes, event_level = "second")
-
-ggplot(roc_data_framingham, aes(x = 1 - specificity, y = sensitivity)) +
-  geom_line() +
-  geom_abline(linetype = "dashed") +
-  labs(x = "False Positive Rate (1 - Specificity)", y = "True Positive Rate (Sensitivity)", title = "ROC Curve") +
-  annotate("text", x = 0.75, y = 0.25, label = paste("AUC =", round(auc_value_framingham$.estimate, 3)), size = 5, color = "blue") +
-  theme_minimal()
-```
+The calculated AUC value of 0.71 quantifies this performance. In interpretation, this means our model has an 71% chance of categorizing a randomly chosen person – significantly better than the 50% we would expect from random guessing. In practicality, to determine the survival of a patient, our model would make the right call about 71% of the time.
